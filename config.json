@@ -1,0 +1,21 @@
+{
+
+    "devices":[
+        {
+            "device_class":"Temp_sensor",
+            "pin":4,
+            "name":"temp_sensor1"
+        },
+        {
+            "device_class":"Led",
+            "pin":13,
+            "name":"led1"
+        }
+        {
+            "device_class":"Button",
+            "pin":27,
+            "name":"button1"
+            "interrupt_variable":"interrupt_variable"
+        }
+    ]
+}
