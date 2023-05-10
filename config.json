@@ -15,7 +15,6 @@
             "device_class":"Button",
             "pin":27,
             "name":"button1"
-            "interrupt_variable":"interrupt_variable"
         }
     ]
 }

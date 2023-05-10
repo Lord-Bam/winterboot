@@ -1,39 +1,30 @@
 import machine
-import classes
 import ujson
-import Create_classes
+import winterboot
 import time
+import sh1106
 
 
-# led = machine.Pin(13, machine.Pin.OUT)
-# led.value(0)
 
-debouncer = time.ticks_ms()
-
-
-winter_boot = Create_classes.Winter_boot()
+winter_boot = winterboot.Winter_boot()
 print(winter_boot.temp_sensor1.read_temp())
 
-# def handle_interrupt(pin):
-#     global debouncer
-#     if debouncer + 30 < time.ticks_ms():
-#         time.sleep(0.01)
-#         debouncer = time.ticks_ms()
-#         print(pin.value())
-# 
-# button1 = machine.Pin(27, machine.Pin.IN, machine.Pin.PULL_UP)
-# button1.irq(trigger=machine.Pin.IRQ_FALLING | machine.Pin.IRQ_RISING, handler=handle_interrupt)
-# print(dir(button1))
+i2c = machine.I2C(scl=machine.Pin(23), sda=machine.Pin(22), freq=400000)
+print(i2c.scan())
+display = sh1106.SH1106_I2C(128, 60, i2c, machine.Pin(16), 0x3C, rotate=180)
+display.sleep(False)
+display_line = []
+display.fill(0)
 
+for x in range(5):
+    display_line.append(str(x))
 
-# with open("config.json") as fp:
-#     data = ujson.loads(fp.read())
-#     
-#     
-# print(data)
-# print(data["devices"])
-# print(data["devices"][0])
-# print(data["devices"][0])
+for x in range(5):
+    display.text(display_line[x], 0, x * 10, 1)           
 
+display.show() 
 
-# winter_boot.create_devices()
+while True:
+    if winter_boot.button1.get_interrupt() == True:
+        print(winter_boot.button1.value)
+        winter_boot.led1.toggle()
