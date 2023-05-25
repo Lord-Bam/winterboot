@@ -3,6 +3,7 @@ import ds18x20
 import onewire
 import time
 
+
 class WinterPin(machine.Pin):
     
     def __init__(self, pin, mode):
