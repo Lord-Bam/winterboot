@@ -1,0 +1,45 @@
+{
+
+    "devices":[
+        {
+            "name": "temp_sensor1",
+            "device_class": "Temp_sensor",
+            "attributes":
+                [
+                {"pin":4}
+                ]
+        },
+        {
+            "name": "led1",
+            "device_class": "Led",
+            "attributes":
+                [
+                {"pin":13}
+                ]
+        }
+        {
+            "name": "button1",
+            "device_class": "Button",
+            "attributes":
+                [
+                {"pin":27}
+                ]
+        }
+        {
+            "name": "motor_shield",
+            "device_class": "MotorShield",
+            "attributes":
+                [
+                {"dir_latch":23},
+                {"dir_clk":22},
+                {"dir_ser":21},
+                {"pwm_pin1":16},
+                {"pwm_pin2":17},
+                {"pwm_pin3":18},
+                {"pwm_pin4":19}
+                ]
+        }
+        
+        
+    ]
+}

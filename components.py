@@ -3,12 +3,20 @@ import ds18x20
 import onewire
 import time
 
+class WinterPin(machine.Pin):
+    
+    def __init__(self, pin, mode):
+        if mode == "in":
+            super().__init__(pin, machine.Pin.In)
+        elif mode == "out":
+            super().__init__(pin, machine.Pin.OUT)
+
 
 class Temp_sensor:
     
-    def __init__(self, pin):
+    def __init__(self, args):
         print("constructor")
-        _ds_pin = machine.Pin(pin)
+        _ds_pin = machine.Pin(args["pin"])
         self._ds_sensor = ds18x20.DS18X20(onewire.OneWire(_ds_pin))
         _roms = self._ds_sensor.scan()
         print("Found DS devices: ", _roms)
@@ -21,11 +29,12 @@ class Temp_sensor:
         return current_temp
     
     
-class Led:
+class Led():
 
-    def __init__(self, pin):
+    def __init__(self, args):    
         print("constructor")
-        self.led = machine.Pin(pin, machine.Pin.OUT)
+        print(args["hihi"])
+        self.led = machine.Pin(args["pin"], machine.Pin.OUT)
         
     def on(self):
         self.led.value(1)
