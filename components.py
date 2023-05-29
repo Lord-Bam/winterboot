@@ -32,10 +32,11 @@ class Temp_sensor:
     
 class Led():
 
-    def __init__(self, args):    
+    def __init__(self, pin, hihi):    
         print("constructor")
-        print(args["hihi"])
-        self.led = machine.Pin(args["pin"], machine.Pin.OUT)
+        print(hihi)
+        self.led = machine.Pin(pin, machine.Pin.OUT)
+        print("constructor done")
         
     def on(self):
         self.led.value(1)

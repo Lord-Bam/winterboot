@@ -4,24 +4,24 @@ import time
 
 class MotorShield():
     
-    def __init__(self, args):
-        self.dir_latch = machine.Pin(args["dir_latch"], machine.Pin.OUT)
-        self.dir_clk = machine.Pin(args["dir_clk"], machine.Pin.OUT)
-        self.dir_ser = machine.Pin(args["dir_ser"], machine.Pin.OUT)
+    def __init__(self, dir_latch, dir_clk, dir_ser, pwm_pin1, pwm_pin2, pwm_pin3, pwm_pin4):
+        self.dir_latch = machine.Pin(dir_latch, machine.Pin.OUT)
+        self.dir_clk = machine.Pin(dir_clk, machine.Pin.OUT)
+        self.dir_ser = machine.Pin(dir_ser, machine.Pin.OUT)
 
-        self.pwm1 = machine.PWM(machine.Pin(args["pwm_pin1"]))
+        self.pwm1 = machine.PWM(machine.Pin(pwm_pin1))
         self.pwm1.freq(800)
         self.pwm1.duty(1023)
 
-        self.pwm2 = machine.PWM(machine.Pin(args["pwm_pin2"]))
+        self.pwm2 = machine.PWM(machine.Pin(pwm_pin2))
         self.pwm2.freq(800)
         self.pwm2.duty(1023)
 
-        self.pwm3 = machine.PWM(machine.Pin(args["pwm_pin3"]))
+        self.pwm3 = machine.PWM(machine.Pin(pwm_pin3))
         self.pwm3.freq(800)
         self.pwm3.duty(1023)
 
-        self.pwm4 = machine.PWM(machine.Pin(args["pwm_pin4"]))
+        self.pwm4 = machine.PWM(machine.Pin(pwm_pin4))
         self.pwm4.freq(800)
         self.pwm4.duty(1023)
         
