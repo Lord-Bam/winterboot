@@ -4,11 +4,27 @@ import onewire
 import time
 
 
+class Joystick():
+    
+    def __init__(self, x, y, sw=None):
+        self.x = machine.ADC(machine.Pin(39))          # create ADC object on ADC pin
+        self.x.atten(machine.ADC.ATTN_11DB)    # set 11dB input attenuation (voltage range roughly 0.0v - 3.6v)
+        self.x.width(machine.ADC.WIDTH_9BIT)   # set 9 bit return values (returned range 0-511)
+
+
+        self.y = machine.ADC(machine.Pin(36))          # create ADC object on ADC pin
+        self.y.atten(machine.ADC.ATTN_11DB)    # set 11dB input attenuation (voltage range roughly 0.0v - 3.6v)
+        self.y.width(machine.ADC.WIDTH_9BIT)   # set 9 bit return values (returned range 0-511)
+            
+    def read(self):
+        return self.x.read(), self.y.read()
+
+
 class WinterPin(machine.Pin):
     
     def __init__(self, pin, mode):
         if mode == "in":
-            super().__init__(pin, machine.Pin.In)
+            super().__init__(pin, machine.Pin.IN)
         elif mode == "out":
             super().__init__(pin, machine.Pin.OUT)
 

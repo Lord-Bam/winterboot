@@ -11,6 +11,15 @@
                 }
         },
         {
+            "name": "button1",
+            "device_class": "WinterPin",
+            "module": "components",
+            "attributes":{
+                "pin":13,
+                "mode": "in"
+                }
+        },
+        {
             "name": "motor_shield",
             "device_class": "MotorShield",
             "module": "motorshield",
@@ -26,6 +35,16 @@
                 }
                 
         }
-
+                {
+            "name": "joystick",
+            "device_class": "Joystick",
+            "module": "components",
+            "attributes":
+                {
+                "x":39,
+                "y":26
+                }
+                
+        }
     ]
 }

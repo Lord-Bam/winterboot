@@ -1,21 +1,41 @@
 import machine
 import time
 import winterboot
-
-
 from hcsr04 import HCSR04
 from time import sleep
 
 
 wb = winterboot.WinterBoot()
 
-wb.led1.on()
-time.sleep(1)
-wb.led1.off()
 
-wb.motor_shield.forward()
-time.sleep(1)
-wb.motor_shield.back()
+direction = wb.joystick.read()
+
+
+
+while True:
+
+    direction = wb.joystick.read()
+    x = direction[0] * -1 // 10 + 24
+    y = direction[1] * -1 // 10 + 24
+    
+    left = y + x * -1
+    right = y + x
+    
+    
+    wb.motor_shield.control_motors(left, right)
+    time.sleep(0.1)
+    
+    
+#     actuel_left_pwm = (left_wheels + 24) *20
+#     print("actuel_left_pwm", actuel_left_pwm)
+#     
+#     actuel_right_pwm = (right_wheels + 24) *20
+#     print("actuel_right_pwm", actuel_right_pwm)
+#     
+#     wb.motor_shield.left_wheels_speed(actuel_left_pwm)
+#     wb.motor_shield.right_wheels_speed(actuel_right_pwm)
+    
+    time.sleep(0.4)
 
 # ESP32
 sensor = HCSR04(trigger_pin=25, echo_pin=26, echo_timeout_us=10000)
@@ -41,20 +61,3 @@ while True:
 
 
 
-# Update the strip.
-
-
-
-
-
-
-
-# wb.led1.on()
-# time.sleep(1)
-# wb.led1.off()
-# 
-# wb.motor_shield.forward()
-# time.sleep(1)
-# wb.motor_shield.back()
-# time.sleep(1)
-# wb.motor_shield.stop()

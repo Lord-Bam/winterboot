@@ -26,7 +26,6 @@ class MotorShield():
         self.pwm4.duty(1023)
         
         self.motorstates = [0,0,0,0,0,0,0,0]
-        print(self.motorstates)
         self.shift_write(self.motorstates)
 
     #dir_en.off()
@@ -40,7 +39,6 @@ class MotorShield():
         self.dir_latch.value(0)
 
     def shift_write(self, motorstates):
-        print(self.motorstates)
         for motorstate in self.motorstates:
             if motorstate == 1:
                 self.dir_ser.on()          
@@ -75,13 +73,167 @@ class MotorShield():
     def stop(self):
         #set motostate to full stop
         self.motorstates = [0 for motor in self.motorstates]
-        self.shift_write(self.motorstates)  
-    
+        self.shift_write(self.motorstates)
+        
+      
+    #motor 1
+    def left_front_forward(self):
+        self.motorstates[4] = 0
+        self.motorstates[5] = 1
+        self.shift_write(self.motorstates)
+        
+    def left_front_back(self):
+        self.motorstates[4] = 1
+        self.motorstates[5] = 0
+        self.shift_write(self.motorstates)
+        
+    def left_front_stop(self):
+        self.motorstates[4] = 0
+        self.motorstates[5] = 0
+        self.shift_write(self.motorstates)
 
+    #motor2
+    def right_front_forward(self):
+        self.motorstates[3] = 0
+        self.motorstates[6] = 1
+        self.shift_write(self.motorstates)
+        
+    def right_front_back(self):
+        self.motorstates[3] = 1
+        self.motorstates[6] = 0
+        self.shift_write(self.motorstates)
+        
+    def right_front_stop(self):
+        self.motorstates[3] = 0
+        self.motorstates[6] = 0
+        self.shift_write(self.motorstates)
+        
+    #motor 3
+    def left_rear_forward(self):
+        self.motorstates[0] = 0
+        self.motorstates[2] = 1
+        self.shift_write(self.motorstates)
+        
+    def left_rear_back(self):
+        self.motorstates[0] = 1
+        self.motorstates[2] = 0
+        self.shift_write(self.motorstates)
+        
+    def left_rear_stop(self):
+        self.motorstates[0] = 0
+        self.motorstates[2] = 0
+        self.shift_write(self.motorstates)
+        
+    #motor 4
+    def right_rear_forward(self):
+        self.motorstates[1] = 0
+        self.motorstates[7] = 1
+        self.shift_write(self.motorstates)
+        
+    def right_rear_back(self):
+        self.motorstates[1] = 1
+        self.motorstates[7] = 0
+        self.shift_write(self.motorstates)
+        
+    def right_rear_stop(self):
+        self.motorstates[1] = 0
+        self.motorstates[7] = 0
+        self.shift_write(self.motorstates)
+        
+        
+    def left_wheels_forward(self):
+        self.motorstates[4] = 0
+        self.motorstates[5] = 1
+        self.motorstates[0] = 0
+        self.motorstates[2] = 1
+        self.shift_write(self.motorstates)
+        
+    def left_wheels_back(self):
+        self.motorstates[4] = 1
+        self.motorstates[5] = 0
+        self.motorstates[0] = 1
+        self.motorstates[2] = 0
+        self.shift_write(self.motorstates)
+        
+    def left_wheels_stop(self):
+        self.motorstates[4] = 0
+        self.motorstates[5] = 0
+        self.motorstates[0] = 0
+        self.motorstates[2] = 0
+        self.shift_write(self.motorstates)
+        
+        
+    def right_wheels_forward(self):
+        self.motorstates[3] = 0
+        self.motorstates[6] = 1
+        self.motorstates[1] = 0
+        self.motorstates[7] = 1
+        self.shift_write(self.motorstates)
+
+        
+    def right_wheels_back(self):
+        self.motorstates[3] = 1
+        self.motorstates[6] = 0
+        self.motorstates[1] = 1
+        self.motorstates[7] = 0
+        self.shift_write(self.motorstates)
+        
+    def right_wheels_stop(self):
+        self.motorstates[3] = 0
+        self.motorstates[6] = 0
+        self.motorstates[1] = 0
+        self.motorstates[7] = 0
+        self.shift_write(self.motorstates)
+
+
+
+
+
+
+    def left_wheels_speed(self, wheels_value):
+        back if wheels_value < 0 else forward
+        if pwm < 0: pwm = 0 
+        if pwm > 1023: pwm = 1023 
+        self.pwm1.duty(pwm)
+        self.pwm2.duty(pwm)
+        
+    
+    def right_wheels_speed(self, pwm):
+        if pwm < 0: pwm = 0 
+        if pwm > 1023: pwm = 1023 
+        self.pwm3.duty(pwm)
+        self.pwm4.duty(pwm)
+        
+        
+    def control_motors(self, left, right):
+        self.left_wheels_back() if left < 0 else  self.left_wheels_forward()
+        self.right_wheels_back() if right < 0 else  self.right_wheels_forward()
+        
+        #left_pwm
+        left_pwm = abs(left)* 20
+        
+        if left_pwm < 0: left_pwm = 0 
+        if left_pwm > 1023: left_pwm = 1023 
+        self.pwm1.duty(left_pwm)
+        self.pwm2.duty(left_pwm)
+        
+        #right_pwm
+        
+        right_pwm = abs(right)* 20
+        
+        if right_pwm < 0: right_pwm = 0 
+        if right_pwm > 1023: right_pwm = 1023 
+        self.pwm3.duty(right_pwm)
+        self.pwm4.duty(right_pwm)
+        
+        print(f'{left_pwm=}, {right_pwm=}')
+        
+            
+    
         
         
 #     msgstr = ""
-#     motorstates = [0,0,0,0,0,0,0,0]
+#     self.motorstates = [0,0,0,0,0,0,0,0]
 #     shift_write(motorstates)
 # 
 #     while True:
