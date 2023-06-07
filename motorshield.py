@@ -186,49 +186,78 @@ class MotorShield():
         self.shift_write(self.motorstates)
 
 
+    def all_wheels_forward(self):
+        self.left_wheels_forward()
+        self.right_wheels_forward()
 
+    def all_wheels_back(self):
+        self.left_wheels_back()
+        self.right_wheels_back()
 
+    def all_wheels_stop(self):
+        self.left_wheels_stop()
+        self.right_wheels_stop()
+        
+    def speed_left_wheels(self, speed):
+        self.pwm1.duty(speed)
+        self.pwm2.duty(speed)
+        
+    def speed_right_wheels(self, speed):
+        self.pwm3.duty(speed)
+        self.pwm4.duty(speed)
+        
+    def speed_all_wheels(self, speed):
+        self.speed_left_wheels(speed)
+        self.speed_right_wheels(speed)
+        
 
-
-    def left_wheels_speed(self, wheels_value):
-        back if wheels_value < 0 else forward
-        if pwm < 0: pwm = 0 
-        if pwm > 1023: pwm = 1023 
-        self.pwm1.duty(pwm)
-        self.pwm2.duty(pwm)
-        
-    
-    def right_wheels_speed(self, pwm):
-        if pwm < 0: pwm = 0 
-        if pwm > 1023: pwm = 1023 
-        self.pwm3.duty(pwm)
-        self.pwm4.duty(pwm)
-        
-        
-    def control_motors(self, left, right):
-        self.left_wheels_back() if left < 0 else  self.left_wheels_forward()
-        self.right_wheels_back() if right < 0 else  self.right_wheels_forward()
-        
-        #left_pwm
-        left_pwm = abs(left)* 20
-        
-        if left_pwm < 0: left_pwm = 0 
-        if left_pwm > 1023: left_pwm = 1023 
-        self.pwm1.duty(left_pwm)
-        self.pwm2.duty(left_pwm)
-        
-        #right_pwm
-        
-        right_pwm = abs(right)* 20
-        
-        if right_pwm < 0: right_pwm = 0 
-        if right_pwm > 1023: right_pwm = 1023 
-        self.pwm3.duty(right_pwm)
-        self.pwm4.duty(right_pwm)
-        
-        print(f'{left_pwm=}, {right_pwm=}')
-        
             
+        
+        
+#         self.left_wheels_back() if left < 0 else  self.left_wheels_forward()
+#         self.right_wheels_back() if right < 0 else  self.right_wheels_forward()
+#         
+#         #left_pwm
+#         left_pwm = abs(left)* 40
+#         
+#         if left_pwm < 0: left_pwm = 0 
+#         if left_pwm > 1023: left_pwm = 1023 
+#         self.pwm1.duty(left_pwm)
+#         self.pwm2.duty(left_pwm)
+#         
+#         #right_pwm
+#         
+#         right_pwm = abs(right)* 40
+#         
+#         if right_pwm < 0: right_pwm = 0 
+#         if right_pwm > 1023: right_pwm = 1023 
+#         self.pwm3.duty(right_pwm)
+#         self.pwm4.duty(right_pwm)
+#         
+#         print(f'{left_pwm=}, {right_pwm=}')
+        
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
     
         
         

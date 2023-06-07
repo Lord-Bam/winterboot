@@ -2,6 +2,8 @@ import machine
 import ds18x20
 import onewire
 import time
+from hcsr04 import HCSR04
+import neopixel
 
 
 class Joystick():
@@ -93,3 +95,21 @@ class Button():
         return_value =  self.interrupt
         self.interrupt = False
         return return_value
+    
+class NeoPixel(neopixel.NeoPixel):
+    
+    def __init__(self, pin):
+        self.neo_pixel_pin = machine.Pin(pin, machine.Pin.OUT)
+        self.np = neopixel.NeoPixel(self.neo_pixel_pin, pin)
+        
+#         while True:
+#             self.np[0] = (255,0,0)
+#             self.np.write()
+#             for x in range(1,8):
+#                 time.sleep(1)
+#                 self.np[x - 1] = (0,0,0)
+#                 self.np[x] = (255,0,0)
+#                 self.np.write()
+
+
+        

@@ -35,7 +35,7 @@
                 }
                 
         }
-                {
+        {
             "name": "joystick",
             "device_class": "Joystick",
             "module": "components",
@@ -46,5 +46,20 @@
                 }
                 
         }
+        {
+            "name": "lights",
+            "device_class": "NeoPixel",
+            "module": "components",
+            "attributes":
+                {
+                "pin":12
+                }
+                
+        }
     ]
+    "winter_blue":{
+        "name":"basman",
+        "handler_class":"__main__",
+        "handler_function": "wb_handler",
+        }
 }

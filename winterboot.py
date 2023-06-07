@@ -2,6 +2,7 @@ import ujson
 import time
 import sys
 
+
 class WinterBoot:
 
     def __init__(self):           
@@ -23,4 +24,25 @@ class WinterBoot:
             print(deviceclass, name, attributes, module)
 
             setattr(self, name, getattr(module, deviceclass)(**attributes))
+            
+        if data["winter_blue"]:
+            import __main__
+            handler_class = data['winter_blue']['handler_class']
+            handler_function = data['winter_blue']['handler_function']
+            print(f"{handler_class=}, {handler_function=}")
+       
+       
+            function_name = f"{handler_class}.{handler_function}"
+            function_object = eval(function_name)
+            
+            
+            
+#             module = getattr(sys.modules[__name__], "__name__")
+#             dir(module)
+#             handler = getattr(module, "wb_handler")()
+            
+            
+            import winter_blue
+            print(data["winter_blue"]["name"])
+            winter_blue = winter_blue.WinterBlue(name = data["winter_blue"]["name"], handler = function_object)
     
