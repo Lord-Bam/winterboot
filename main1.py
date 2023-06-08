@@ -9,55 +9,17 @@ import neopixel
 import components
 
 
-car_changed = False
-x = 0
-y = 0
-
 def wb_handler(message):
-    global car_changed
-    global x
-    global y
-    print(message)
     if "XY: " in message:
         message = message.split(" ")
-        x = message[1]
-        y = message[2]
-        
-    if "Button1 " in message:
-        print("linker pinker")
-        message = message.split(" ")
-        print(message[1])
-        
-    if "Button5 " in message:
-        print("linker pinker")
-        message = message.split(" ")
-        print(message[1])
-    
-    car_changed = True
+        car.x = float(message[1])
+        car.y = float(message[2])
+
 
 wb = winterboot.WinterBoot()
 car = car.Car(wb.motor_shield, wb.lights)
 
-
-car.left_light_on()
-time.sleep(1)
-        
-car.left_light_off()
-time.sleep(1)
-        
-car.right_light_on()
-time.sleep(1)
-    
-car.left_right_off()
-time.sleep(1)
-
-
-
-
-while True:
-    if car_changed == True:
-        car_changed = False
-        car.control_motors(float(x),float(y))
+car.start()
     
     
 # #forward

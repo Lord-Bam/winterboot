@@ -6,8 +6,7 @@
             "device_class": "Led",
             "module": "components",
             "attributes":{
-                "pin":13,
-                "hihi":"haha"
+                "pin":13
                 }
         },
         {
@@ -44,7 +43,6 @@
                 "x":39,
                 "y":26
                 }
-                
         }
         {
             "name": "lights",
@@ -53,8 +51,7 @@
             "attributes":
                 {
                 "pin":12
-                }
-                
+                }   
         }
     ]
     "winter_blue":{

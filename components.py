@@ -29,8 +29,38 @@ class WinterPin(machine.Pin):
             super().__init__(pin, machine.Pin.IN)
         elif mode == "out":
             super().__init__(pin, machine.Pin.OUT)
+    
+    
+class Led(machine.Pin):
 
+    def __init__(self, pin):    
+        super().__init__(pin, machine.Pin.OUT)
+        
+    def on(self):
+        self.value(1)
+        
+    def off(self):
+        self.value(0)
+        
+    def toggle(self):
+        if self.value() == 0:
+            self.value(1)
+        else:
+            self.value(0)
+        
 
+    
+class NeoPixel(neopixel.NeoPixel):
+    
+    def __init__(self, pin):
+        neo_pixel_pin = machine.Pin(pin, machine.Pin.OUT)
+        super().__init__(neo_pixel_pin, pin)
+ 
+###########################
+# Still needs refactoring #
+###########################
+
+        
 class Temp_sensor:
     
     def __init__(self, args):
@@ -46,28 +76,7 @@ class Temp_sensor:
         self._ds_sensor.convert_temp() #needs to be done everytime you read a value.
         current_temp = self._ds_sensor.read_temp(self._rom)
         return current_temp
-    
-    
-class Led():
 
-    def __init__(self, pin, hihi):    
-        print("constructor")
-        print(hihi)
-        self.led = machine.Pin(pin, machine.Pin.OUT)
-        print("constructor done")
-        
-    def on(self):
-        self.led.value(1)
-        
-    def off(self):
-        self.led.value(0)
-        
-    def toggle(self):
-        if self.led.value() == 0:
-            self.led.value(1)
-        else:
-            self.led.value(0)
-        
 class Button():
     #https://docs.micropython.org/en/latest/library/machine.Pin.html
     #https://docs.micropython.org/en/latest/reference/isr_rules.html#isr-rules
@@ -94,13 +103,12 @@ class Button():
     def get_interrupt(self):
         return_value =  self.interrupt
         self.interrupt = False
-        return return_value
+        return return_value 
     
-class NeoPixel(neopixel.NeoPixel):
-    
-    def __init__(self, pin):
-        self.neo_pixel_pin = machine.Pin(pin, machine.Pin.OUT)
-        self.np = neopixel.NeoPixel(self.neo_pixel_pin, pin)
+#neopixel
+#     def __init__(self, pin):
+#         self.neo_pixel_pin = machine.Pin(pin, machine.Pin.OUT)
+#         self.np = neopixel.NeoPixel(self.neo_pixel_pin, pin)
         
 #         while True:
 #             self.np[0] = (255,0,0)
