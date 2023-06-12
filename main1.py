@@ -4,7 +4,7 @@ import car
 import time
 
 import machine
-from hcsr04 import HCSR04
+import hcsr04
 import neopixel
 import components
 
@@ -17,9 +17,14 @@ def wb_handler(message):
 
 
 wb = winterboot.WinterBoot()
-car = car.Car(wb.motor_shield, wb.lights)
+car = car.Car(wb.motor_shield, wb.lights, wb.distance_sensor)
 
 car.start()
+
+
+
+
+
     
     
 # #forward

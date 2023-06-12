@@ -53,6 +53,16 @@
                 "pin":12
                 }   
         }
+        {
+            "name": "distance_sensor",
+            "device_class": "HCSR04",
+            "module": "hcsr04",
+            "attributes":
+                {
+                "trigger_pin":25,
+                "echo_pin":26
+                }   
+        }
     ]
     "winter_blue":{
         "name":"basman",

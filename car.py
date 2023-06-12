@@ -2,18 +2,24 @@ import time
 
 class Car():
     
-    def __init__(self, motor_shield, lights):
+    def __init__(self, motor_shield, lights, distance_sensor):
         self._motor_shield = motor_shield
         self._motor_shield.all_wheels_stop()
         #prevent overflows
         self._x = 0
+        self._x_old_value = 0
         self._y = 0
+        self._x_old_value = 0
         self._motor_control_changed = True
+        
+        self._distance_sensor = distance_sensor
         
         self.lights = lights
         for x in range(0,7):
             self.lights[x] = (0,0,0)
             self.lights.write()
+            
+        self._emergency_brake = False
         
     
     @property
@@ -22,6 +28,7 @@ class Car():
     
     @x.setter
     def x(self, x):
+        self._x_old_value = self._x
         self._x = x
         self._motor_control_changed = True
         
@@ -31,18 +38,56 @@ class Car():
     
     @y.setter
     def y(self, y):
-        self._motor_control_changed = True
+        self._y_old_value = self._y
         self._y = y
+        self._motor_control_changed = True
     
     
     def start(self):
         print("start your engines")
+        offset = time.ticks_ms()
+        
         
         while True:
-            if self._motor_control_changed:
-                print(f"{self._x=}, {self._y=}")
+            
+            #emergency break.
+            #every second distance is checked. If the distance is less than 5 the car immediatly stops.
+            if offset + 1000 < time.ticks_ms():
+                offset = time.ticks_ms()
+                distance = self._distance_sensor.distance_cm()
+                if distance < 5:
+                    self._emergency_brake = True
+                    print(f"emergency brake: {distance}")
+                    self._motor_shield.all_wheels_stop()
+                    self._x = 0
+                    self._y = 0
+                else:
+                    self._emergency_brake = False
+                
+
+                if abs(self._x) > 20:
+                    print("blinker")
+                
+                else:
+                    print("blinker off")
+                    
+                
+
+            
+            #motor control
+            if self._motor_control_changed and self._emergency_brake == False:
+                #print(f"{self._x=}, {self._y=}")
                 self._motor_control_changed = False
                 self._control_motors()
+                
+            #break light control
+#             if self._x == 0 or abs(self._x_old_value) - abs(self._x) > 20:
+#                 print("breaking")
+
+                
+                
+            
+
         
         
     def _control_motors(self):
@@ -72,13 +117,11 @@ class Car():
                 pwm = abs(x)
                 #slow down left wheels
                 pwm = max(0, abs(y) - pwm)
-                print(pwm)
                 self._motor_shield.speed_left_wheels(pwm)
             else:
                 pwm = abs(x)
                 #slow down left wheels
                 pwm = max(0, abs(y) - pwm)
-                print(pwm)
                 self._motor_shield.speed_right_wheels(pwm)
             
 
