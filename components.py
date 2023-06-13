@@ -56,6 +56,23 @@ class NeoPixel(neopixel.NeoPixel):
         neo_pixel_pin = machine.Pin(pin, machine.Pin.OUT)
         super().__init__(neo_pixel_pin, pin)
  
+ 
+
+                
+#         while True:
+#             self.np[0] = (255,0,0)
+#             self.np.write()
+#             for x in range(1,8):
+#                 time.sleep(1)
+#                 self.np[x - 1] = (0,0,0)
+#                 self.np[x] = (255,0,0)
+#                 self.np.write()
+        
+        
+    
+ 
+ 
+ 
 ###########################
 # Still needs refactoring #
 ###########################

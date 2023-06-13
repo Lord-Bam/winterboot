@@ -11,19 +11,19 @@ class MotorShield():
 
         self.pwm1 = machine.PWM(machine.Pin(pwm_pin1))
         self.pwm1.freq(800)
-        self.pwm1.duty(1023)
+        self.pwm1.duty(0)
 
         self.pwm2 = machine.PWM(machine.Pin(pwm_pin2))
         self.pwm2.freq(800)
-        self.pwm2.duty(1023)
+        self.pwm2.duty(0)
 
         self.pwm3 = machine.PWM(machine.Pin(pwm_pin3))
         self.pwm3.freq(800)
-        self.pwm3.duty(1023)
+        self.pwm3.duty(0)
 
         self.pwm4 = machine.PWM(machine.Pin(pwm_pin4))
         self.pwm4.freq(800)
-        self.pwm4.duty(1023)
+        self.pwm4.duty(0)
         
         self.motorstates = [0,0,0,0,0,0,0,0]
         self.shift_write(self.motorstates)
@@ -189,14 +189,17 @@ class MotorShield():
     def all_wheels_forward(self):
         self.left_wheels_forward()
         self.right_wheels_forward()
+        print("all wheels forward")
 
     def all_wheels_back(self):
         self.left_wheels_back()
         self.right_wheels_back()
+        print("all wheels back")
 
     def all_wheels_stop(self):
         self.left_wheels_stop()
         self.right_wheels_stop()
+        print("all wheels stop")
         
     def speed_left_wheels(self, speed):
         self.pwm1.duty(speed)

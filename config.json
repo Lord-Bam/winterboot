@@ -27,8 +27,8 @@
                 "dir_latch":23,
                 "dir_clk":22,
                 "dir_ser":21,
-                "pwm_pin1":16,
-                "pwm_pin2":17,
+                "pwm_pin1":2,
+                "pwm_pin2":4,
                 "pwm_pin3":18,
                 "pwm_pin4":19
                 }
@@ -45,12 +45,21 @@
                 }
         }
         {
-            "name": "lights",
-            "device_class": "NeoPixel",
-            "module": "components",
+            "name": "front_lights",
+            "device_class": "CarLightsFront",
+            "module": "car",
             "attributes":
                 {
                 "pin":12
+                }   
+        }
+        {
+            "name": "rear_lights",
+            "device_class": "CarLightsRear",
+            "module": "car",
+            "attributes":
+                {
+                "pin":14
                 }   
         }
         {
