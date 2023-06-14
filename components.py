@@ -47,6 +47,9 @@ class Led(machine.Pin):
             self.value(1)
         else:
             self.value(0)
+            
+    def state(self):
+        return self.value()
         
 
     
@@ -57,16 +60,25 @@ class NeoPixel(neopixel.NeoPixel):
         super().__init__(neo_pixel_pin, pin)
  
  
+class VoltageMeter():
+    
+    def __init__(self, pin, voltage_devider = False):
+        self._meter = machine.ADC(machine.Pin(pin))
+        #set max voltage to 2.45V
+        self._meter.atten(machine.ADC.ATTN_11DB)
+        self._voltage_devider = voltage_devider
+        
+        
+    def read(self):
+        result = self._meter.read_uv() / 1000000
+        
+        if self._voltage_devider == True:
+            return result * 2
+        else:
+            return result
+        
+    
 
-                
-#         while True:
-#             self.np[0] = (255,0,0)
-#             self.np.write()
-#             for x in range(1,8):
-#                 time.sleep(1)
-#                 self.np[x - 1] = (0,0,0)
-#                 self.np[x] = (255,0,0)
-#                 self.np.write()
         
         
     

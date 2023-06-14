@@ -5,7 +5,7 @@ import components
 
 class Car():
     
-    def __init__(self, motor_shield, front_lights, rear_lights, distance_sensor, df):
+    def __init__(self, motor_shield, front_lights, rear_lights, distance_sensor, df, battery_meter, battery_led):
         self._motor_shield = motor_shield
         self._motor_shield.all_wheels_stop()
         #prevent overflows
@@ -29,6 +29,9 @@ class Car():
         self._dim_lights = False
         self._alarm_lights = False
         self._df_playing = False
+        
+        self._battery_meter = battery_meter
+        self._battery_led = battery_led
         
     
     @property
@@ -115,6 +118,17 @@ class Car():
                 else:
                    self._df_playing = False
                    self._df.stop()
+                
+                
+                
+                #check battery_voltage
+                if self._battery_meter.read() < 2:
+                    if self._battery_led.state() != 1:
+                        self._battery_led.on()
+                else:
+                    if self._battery_led.state() != 0:
+                        self._battery_led.off()
+                    
                     
                 
                 
@@ -219,34 +233,6 @@ class CarLights():
                     self._lights[x] = (0,0,0)
                     self._lights.write
 
-            
-            
-    
-#     def blink_alarm_lights(self):
-#         print(self._alarm_lights)
-#         
-#         if self._alarm_lights == True:
-#             print("blinking lights")
-#             if self._alarm_lights_old_state != self._alarm_lights_state:
-#                 self._alarm_lights_old_state = self._alarm_lights_state
-#                 if time.ticks_ms() // 1000 % 2 == 0:
-#                     self._alarm_lights_state = True
-#                     for x in range(3,4):
-#                         self._lights[x] = (0,0,255)
-#                         self._lights.write()
-#                         
-#                 else:
-#                     self._alarm_lights_state = False
-#                     for x in range(3,4):
-#                         self._lights[x] = (0,0,0)
-#                         self._lights.write()
-#                         
-#                 
-#         else:
-#             for x in range(3,4):
-#                 self._lights[x] = (0,0,0)
-#                 self._lights.write()
-
         
     def brake_on(self):
         if self._brake_state != "on":
@@ -277,7 +263,6 @@ class CarLights():
             self._blinker_state = False
         
         #decide direction:
-            
         if self._blinker_state != self._blinker_old_state:
             self._blinker_old_state = self._blinker_state
             
