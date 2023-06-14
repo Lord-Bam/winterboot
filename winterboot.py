@@ -37,12 +37,7 @@ class WinterBoot:
             
             
             
-#             module = getattr(sys.modules[__name__], "__name__")
-#             dir(module)
-#             handler = getattr(module, "wb_handler")()
-            
-            
             import winter_blue
             print(data["winter_blue"]["name"])
-            winter_blue = winter_blue.WinterBlue(name = data["winter_blue"]["name"], handler = function_object)
+            self.winter_blue = winter_blue.WinterBlue(name = data["winter_blue"]["name"], handler = function_object)
     

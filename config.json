@@ -72,6 +72,17 @@
                 "echo_pin":26
                 }   
         }
+        {
+            "name": "df",
+            "device_class": "SireneDFPlayer",
+            "module": "dfplayer",
+            "attributes":
+                {
+                "uart_id":1,
+                "tx_pin_id":16,
+                "rx_pin_id":17
+                }   
+        }
     ]
     "winter_blue":{
         "name":"basman",

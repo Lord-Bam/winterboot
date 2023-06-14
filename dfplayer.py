@@ -1,3 +1,6 @@
+#https://wiki.dfrobot.com/DFPlayer_Mini_SKU_DFR0299
+#https://github.com/redoxcode/micropython-dfplayer
+
 import machine
 import time
 
@@ -22,7 +25,7 @@ class DFPlayer:
     def send_query(self,cmd,param1=0,param2=0):  
         self.flush()
         self.send_cmd(cmd,param1,param2)
-        time.sleep(0.05)
+        time.sleep(0.1)
         in_bytes = self.uart.read()
         if not in_bytes:
             return bytes(10)
@@ -73,3 +76,13 @@ class DFPlayer:
             return -1
         return in_bytes[6]
 
+
+class SireneDFPlayer(DFPlayer):
+    
+    def __init__(self,uart_id,tx_pin_id=None,rx_pin_id=None):
+        super().__init__(uart_id,tx_pin_id,rx_pin_id)
+    
+    def play_repeat(self,folder,file):
+        self.stop()
+        time.sleep(0.05)
+        self.send_cmd(17,folder,file)

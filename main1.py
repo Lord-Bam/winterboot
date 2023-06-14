@@ -7,8 +7,9 @@ import machine
 import hcsr04
 import neopixel
 import components
-import dfplayer
+
 import time
+
 
 def wb_handler(message):
     print(message)
@@ -27,7 +28,7 @@ def wb_handler(message):
         
 
 wb = winterboot.WinterBoot()
-car = car.Car(wb.motor_shield, wb.front_lights, wb.rear_lights, wb.distance_sensor)
+car = car.Car(wb.motor_shield, wb.front_lights, wb.rear_lights, wb.distance_sensor, wb.df)
 
 car.start()
 
@@ -65,18 +66,7 @@ car.start()
 
 
 
-# df=DFPlayer(uart_id=1,tx_pin_id=1,rx_pin_id=3)
-# #wait some time till the DFPlayer is ready
-# time.sleep(0.2)
-# #change the volume (0-30). The DFPlayer doesn't remember these settings
-# df.volume(25)
-# time.sleep(0.2)
-# #play file ./01/001.mp3
-# df.play(1,1)
-# time.sleep(2)
-# df.play(1,2)
-# time.sleep(10)
-# df.stop()
+
     
     
     
