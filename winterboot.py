@@ -24,8 +24,8 @@ class WinterBoot:
             print(deviceclass, name, attributes, module)
 
             setattr(self, name, getattr(module, deviceclass)(**attributes))
-            
-        if data["winter_blue"]:
+        
+        if "winter_blue" in data:
             import __main__
             handler_class = data['winter_blue']['handler_class']
             handler_function = data['winter_blue']['handler_function']

@@ -1,28 +1,29 @@
+#https://randomnerdtutorials.com/micropython-mqtt-esp32-esp8266/
 import winterboot
 import __main__
-import car
+from umqttsimple import MQTTClient
+import time
 
+import network_service
 
+wifi = network_service.Wifi("chezlaget", "wifi_password.txt")
 
+mqtt_server = '192.168.0.133'
+#client_id = ubinascii.hexlify(machine.unique_id())
+client_id = "esp32"
 
+topic_pub = "test"
+msg = "haha hihi"
 
-def wb_handler(message):
-    print(message)
-    if "XY: " in message:
-        message = message.split(" ")
-        car.x = float(message[1])
-        car.y = float(message[2])
-        
-    if "Button1" in message:
-        message = message.split(" ")
-        car.dim_lights = bool(int(message[1]))
-        
-    if "Button2" in message:
-        message = message.split(" ")
-        car.alarm_lights = bool(int(message[1]))
+client_id, mqtt_server
+client = MQTTClient(client_id, mqtt_server)
 
+client.connect()
 
-wb = winterboot.WinterBoot()
-car = car.Car(wb.motor_shield, wb.front_lights, wb.rear_lights, wb.distance_sensor, wb.df, wb.voltage_meter, wb.battery_led)
+while True:
+    client.publish(topic_pub, msg)
+    time.sleep(1)
+    print("looping")
+    
 
-car.start()
+#wb = winterboot.WinterBoot()
