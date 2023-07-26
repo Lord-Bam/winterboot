@@ -1,6 +1,69 @@
 {
 
-    "devices":[ 
-    ]
-
+    "sensors":[
+            {
+            "name": "hum1",
+            "device_class": "DHT11_hum",
+            "module": "components",
+            "attributes":{
+                "pin":5
+                }
+            },
+            {
+            "name": "temp1",
+            "device_class": "DHT11_temp",
+            "module": "components",
+            "attributes":{
+                "pin":5
+                }
+            },
+            {
+            "name": "hum2",
+            "device_class": "DHT11_hum",
+            "module": "components",
+            "attributes":{
+                "pin":18
+                }
+            },
+            {
+            "name": "temp2",
+            "device_class": "DHT11_temp",
+            "module": "components",
+            "attributes":{
+                "pin":18
+                }
+            },
+            {
+            "name": "hum3",
+            "device_class": "DHT11_hum",
+            "module": "components",
+            "attributes":{
+                "pin":19
+                }
+            },
+            {
+            "name": "temp3",
+            "device_class": "DHT11_temp",
+            "module": "components",
+            "attributes":{
+                "pin":19
+                }
+            }
+      ],
+      "components":[
+            {
+            "name": "oled",
+            "device_class": "Oled",
+            "module": "components",
+            "attributes":{
+                "sda":21,
+                "scl":23
+                }
+            }
+    ],
+    "sleep":1,
+    "wifi":{
+        "SSID":"Sebastiaan's Galaxy S21 5G",
+        "password":"hahahihi"
+        }
 }

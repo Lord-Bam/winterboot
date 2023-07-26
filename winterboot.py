@@ -1,29 +1,53 @@
 import ujson
 import time
 import sys
-
+import network
+import sh1106
 
 class WinterBoot:
 
-    def __init__(self):           
+    def __init__(self):
+        
+        self.components = {}
         with open("config.json") as fp:
             data = ujson.loads(fp.read())
         
         
-        for device in data["devices"]:
-            print(device)
-            deviceclass = device["device_class"]
-            name = device["name"]
-            attributes = device["attributes"]
+        for sensor in data["sensors"]:
+            print(sensor)
+            deviceclass = sensor["device_class"]
+            name = sensor["name"]
+            attributes = sensor["attributes"]
 
             
-            module_obj = __import__(device["module"])
-            globals()[device["module"]] = module_obj
+            module_obj = __import__(sensor["module"])
+            globals()[sensor["module"]] = module_obj
             
-            module = getattr(sys.modules[__name__], device["module"])
+            module = getattr(sys.modules[__name__], sensor["module"])
             print(deviceclass, name, attributes, module)
 
             setattr(self, name, getattr(module, deviceclass)(**attributes))
+            
+            print(type(getattr(self, name)))
+            self.components[name] = getattr(self, name)
+            
+        for component in data["components"]:
+            print(component)
+            deviceclass = component["device_class"]
+            name = component["name"]
+            attributes = component["attributes"]
+
+            
+            module_obj = __import__(component["module"])
+            globals()[component["module"]] = module_obj
+            
+            module = getattr(sys.modules[__name__], component["module"])
+            print(deviceclass, name, attributes, module)
+
+            setattr(self, name, getattr(module, deviceclass)(**attributes))
+
+            
+            
         
         if "winter_blue" in data:
             import __main__
@@ -40,4 +64,25 @@ class WinterBoot:
             import winter_blue
             print(data["winter_blue"]["name"])
             self.winter_blue = winter_blue.WinterBlue(name = data["winter_blue"]["name"], handler = function_object)
+            
+        if "sleep" in data:
+            self.sleep = data["sleep"]
+            
+        if "wifi" in data:
+            self.__wlan_sta = network.WLAN(network.STA_IF)
+            self.__wlan_sta.active(True)
+#             self.__networks = self.__wlan_sta.scan()
+#             print(self.__networks)
+
+            self.__wlan_sta.disconnect()
+            self.__wlan_sta.connect(data["wifi"]["SSID"], data["wifi"]["password"])
+            for retry in range(200):
+                connected = self.__wlan_sta.isconnected()
+                if connected:
+                    break
+                time.sleep(0.1)
+                print('.', end='')
+            if connected:
+                print('\nConnected. Network config: ', self.__wlan_sta.ifconfig())
+                self.ip = self.__wlan_sta.ifconfig()[3]
     

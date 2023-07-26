@@ -1,29 +1,41 @@
 #https://randomnerdtutorials.com/micropython-mqtt-esp32-esp8266/
 import winterboot
 import __main__
-from umqttsimple import MQTTClient
 import time
+import machine
+import sh1106
+import json
+import ntptime
 
-import network_service
+wb = winterboot.WinterBoot()
+led = machine.Pin (2, machine.Pin.OUT)
 
-wifi = network_service.Wifi("chezlaget", "wifi_password.txt")
+try:
+    ntptime.settime()
+except OSError as error:
+    print(str("errornr="),error)
+    
+print(time.localtime())
 
-mqtt_server = '192.168.0.133'
-#client_id = ubinascii.hexlify(machine.unique_id())
-client_id = "esp32"
-
-topic_pub = "test"
-msg = "haha hihi"
-
-client_id, mqtt_server
-client = MQTTClient(client_id, mqtt_server)
-
-client.connect()
+wb.oled.write_line(0, wb.ip)
+wb.oled.write_line(1, str(time.localtime()[0]) + "/" + str(time.localtime()[1]) + "/" + str(time.localtime()[2]))
+wb.oled.write_line(2, str(time.localtime()[3]) + ":" + str(time.localtime()[4]) + ":" + str(time.localtime()[5]))
 
 while True:
-    client.publish(topic_pub, msg)
-    time.sleep(1)
-    print("looping")
+    json_object = {}
+    for key, value in wb.components.items():
+        json_object[key] = value.measure()
+        
+    json_object = json.dumps(json_object)
+    print(json_object)
     
+    wb.oled.write_line(1, str(time.localtime()[0]) + "/" + str(time.localtime()[1]) + "/" + str(time.localtime()[2]))
+    wb.oled.write_line(2, str(time.localtime()[3]) + ":" + str(time.localtime()[4]) + ":" + str(time.localtime()[5]))
+    
+    #"fake sleeping"
+    time.sleep(wb.sleep)
 
-#wb = winterboot.WinterBoot()
+
+#     machine.sleep(wb.sleep)
+
+
