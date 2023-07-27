@@ -1,5 +1,5 @@
 {
-
+    "host":"beehive1"
     "sensors":[
             {
             "name": "hum1",
@@ -65,5 +65,10 @@
     "wifi":{
         "SSID":"Sebastiaan's Galaxy S21 5G",
         "password":"hahahihi"
-        }
+        },
+    "mqtt":{
+        "mqtt_server":"192.168.68.70",
+        "client_id":"esp32"
+        "topic":"beehive1"
+    }
 }

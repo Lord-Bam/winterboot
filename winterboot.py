@@ -3,6 +3,8 @@ import time
 import sys
 import network
 import sh1106
+from umqttsimple import MQTTClient
+import mqtt_client
 
 class WinterBoot:
 
@@ -85,4 +87,17 @@ class WinterBoot:
             if connected:
                 print('\nConnected. Network config: ', self.__wlan_sta.ifconfig())
                 self.ip = self.__wlan_sta.ifconfig()[3]
+                
+        if "mqtt" in data:
+            self.__mqtt_server = data["mqtt"]["mqtt_server"]
+            self.__client_id = data["mqtt"]["client_id"]
+            self.__topic = data["mqtt"]["topic"]
+            self.mqtt_client = mqtt_client.mqtt_client(self.__mqtt_server, self.__client_id, self.__topic)
+            
+        if "host" in data:
+            self.host = data["host"]
+            
+
+            
+            
     
