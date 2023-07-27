@@ -92,7 +92,10 @@ class WinterBoot:
             self.__mqtt_server = data["mqtt"]["mqtt_server"]
             self.__client_id = data["mqtt"]["client_id"]
             self.__topic = data["mqtt"]["topic"]
-            self.mqtt_client = mqtt_client.mqtt_client(self.__mqtt_server, self.__client_id, self.__topic)
+            self.__username = data["mqtt"]["username"]
+            self.__password = data["mqtt"]["password"]
+            self.mqtt_client = mqtt_client.mqtt_client(self.__mqtt_server, self.__client_id, self.__topic, self.__username, self.__password)
+            
             
         if "host" in data:
             self.host = data["host"]
