@@ -62,7 +62,6 @@ class WinterBoot:
             function_object = eval(function_name)
             
             
-            
             import winter_blue
             print(data["winter_blue"]["name"])
             self.winter_blue = winter_blue.WinterBlue(name = data["winter_blue"]["name"], handler = function_object)
@@ -94,9 +93,20 @@ class WinterBoot:
             self.__topic = data["mqtt"]["topic"]
             self.__username = data["mqtt"]["username"]
             self.__password = data["mqtt"]["password"]
-            self.mqtt_client = mqtt_client.mqtt_client(self.__mqtt_server, self.__client_id, self.__topic, self.__username, self.__password)
+            self.__port = data["mqtt"]["port"]
+            self.__SSL = data["mqtt"]["SSL"]
+
             
-            
+            self.mqtt_client = mqtt_client.mqtt_client(self.__mqtt_server,
+                                                       self.__client_id,
+                                                       self.__topic,
+                                                       self.__username,
+                                                       self.__password,
+                                                       self.__port,
+                                                       self.__SSL)
+                                                       
+
+
         if "host" in data:
             self.host = data["host"]
             

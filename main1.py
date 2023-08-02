@@ -18,6 +18,7 @@ except OSError as error:
 print(time.localtime())
 wb.oled.write_line(0, wb.host)
 wb.oled.write_line(1, wb.ip)
+
 while True:
     host_date = str(time.localtime()[0]) + "/" + str(time.localtime()[1]) + "/" + str(time.localtime()[2])
     host_time = str(time.localtime()[3]) + ":" + str(time.localtime()[4]) + ":" + str(time.localtime()[5]) 

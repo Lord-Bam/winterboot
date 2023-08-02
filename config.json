@@ -67,10 +67,12 @@
         "password":"hahahihi"
         },
     "mqtt":{
-        "mqtt_server":"192.168.68.70",
-        "client_id":"esp32"
-        "topic":"beehive1"
-        "username":"beehive1"
-        "password":"password"
+        "mqtt_server":"192.168.68.128",
+        "client_id":"esp32-1",
+        "topic":"beehive1",
+        "username":"bassie",
+        "password":"bassie",
+        "port":"8883",
+        "SSL":true
     }
 }

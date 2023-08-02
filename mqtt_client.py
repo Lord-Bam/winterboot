@@ -3,8 +3,8 @@ import time
 
 class mqtt_client():
     
-    def __init__(self, mqtt_server, client_id, topic, username, password):
-        self.__client = MQTTClient(client_id, mqtt_server, port=1883, user=username, password=password, ssl=False)
+    def __init__(self, mqtt_server, client_id, topic, username, password, port, ssl):
+        self.__client = MQTTClient(client_id, mqtt_server, user=username, password=password, port=port, ssl=ssl)
         self.__topic = topic
         
     def publish(self, msg):
