@@ -6,6 +6,7 @@ import machine
 import sh1106
 import json
 import ntptime
+import webserver
 
 wb = winterboot.WinterBoot()
 # led = machine.Pin (2, machine.Pin.OUT)
@@ -18,6 +19,9 @@ except OSError as error:
 print(time.localtime())
 wb.oled.write_line(0, wb.host)
 wb.oled.write_line(1, wb.ip)
+
+webserver.run()
+
 
 while True:
     host_date = str(time.localtime()[0]) + "/" + str(time.localtime()[1]) + "/" + str(time.localtime()[2])
