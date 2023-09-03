@@ -6,7 +6,9 @@ import machine
 import sh1106
 import json
 import ntptime
-import webserver
+from machine import deepsleep
+from time import sleep
+
 
 wb = winterboot.WinterBoot()
 # led = machine.Pin (2, machine.Pin.OUT)
@@ -20,7 +22,6 @@ print(time.localtime())
 wb.oled.write_line(0, wb.host)
 wb.oled.write_line(1, wb.ip)
 
-webserver.run()
 
 
 while True:
@@ -48,9 +49,8 @@ while True:
     
     wb.mqtt_client.publish(json_object)
     #"fake sleeping"
-    time.sleep(wb.sleep)
+    time.sleep(3)
 
-
-#     machine.sleep(wb.sleep)
+    #machine.sleep(wb.sleep)
 
 

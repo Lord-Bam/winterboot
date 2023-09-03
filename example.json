@@ -61,19 +61,18 @@
                 }
             }
     ],
-    "sleep":1,
+    "sleep":60,
     "wifi":{
-        "SSID":"Sebastiaan's Galaxy S21 5G",
-        "password":"hahahihi"
+        "SSID":"chezlaget",
+        "password":"hihi"
         },
     "mqtt":{
-        "mqtt_server":"192.168.68.128",
+        "mqtt_server":"192.168.0.18",
         "client_id":"esp32-1",
-        "topic":"beehive1",
+        "topic":"beehive666",
         "username":"bassie",
         "password":"bassie",
-        "port":"8883",
-        "SSL":true
+        "port":"1883",
+        "SSL":false
     }
 }
-

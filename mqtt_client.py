@@ -14,7 +14,3 @@ class mqtt_client():
             self.__client.connect()
             self.__client.publish(self.__topic, msg)
             self.__client.disconnect()
-
-        
-    
-        
