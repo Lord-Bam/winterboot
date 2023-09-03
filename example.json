@@ -64,7 +64,7 @@
     "sleep":60,
     "wifi":{
         "SSID":"chezlaget",
-        "password":"hihi"
+        "password":"haha"
         },
     "mqtt":{
         "mqtt_server":"192.168.0.18",
@@ -76,3 +76,4 @@
         "SSL":false
     }
 }
+
